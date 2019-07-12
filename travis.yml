@@ -1,0 +1,54 @@
+
+language: ruby
+rvm: 2.6.3
+sudo: required
+services: postgresql
+addons:
+  chrome: stable
+  firefox: latest
+before_install:
+  - gem update --system
+install:
+  # Install ruby gems
+  - gem install bundler -v 1.17.2
+  - bundle install --without production development --deployment --path vendor/bundle
+  # Install reqired node version
+  - nvm install 12.6.0
+  - nvm use 12.6.0
+  # Install node packages
+  - yarn install --production
+  # # Install Chromedriver
+  # - wget -N http://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip -P ~/
+  # - unzip ~/chromedriver_linux64.zip -d ~/
+  # - rm ~/chromedriver_linux64.zip
+  # - sudo mv -f ~/chromedriver /usr/local/share/
+  # - sudo chmod +x /usr/local/share/chromedriver
+  # - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+  # # Install Geckodriver
+  # - wget -N https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz -P ~/
+  # - tar -xvzf ~/geckodriver-v0.19.1-linux64.tar.gz -C ~
+  # - rm ~/geckodriver-v0.19.1-linux64.tar.gz
+  # - sudo mv -f ~/geckodriver /usr/local/share/
+  # - sudo chmod +x /usr/local/share/geckodriver
+  # - sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - bundle exec rake db:setup
+script:
+  # - xvfb-run bin/rspec
+  # - bin/rubocop
+cache:
+  directories:
+    - node_modules
+    - vendor/bundle
+    - $HOME/.nvm
+deploy:
+  provider: heroku
+  api_key:
+    secure: 4C54Q7Rjfrxg3XkuieNpwPnrl+XnmlYL0gYpkxegAjXPYecaeLq+AMFZQBfxs1/xEjxar0fjJS+wmOePkPdIEoJfTMeS1TpIu30IgeNktaLRDQzkoa+VYaLyixxAevgRAaaqbQ2TigtK/XGjYZfgPzqgy87Z5GWKfkBGE2O+3vv3mAGDvuiGbv2u5V7pj4GAprkx8JWnijU1dlDbdW71QVLuyYW3fn1hVyKmMlMz9RO53TFYfev3Zn1tLSlAeXCox7b6unmoM01UvYTmFu1tL7vDGZEjjFwkEeCGQqZtVR1N12qJwMMTVk6KmEmtDYryxmwyoOmuRhxy6k3ugGCrGGQaZqx6p4c9efO4b0gOKAb3MPFSVj6wq9g5jRU9NQuevkuEHIwN3re3SvLVc3bAvubZCW79UiJk9NKaURUmrvWpZ2iI4/eUxngKP3Vrd1c/qG7VHmLH9Ol9HJXiTJ4XgYJLp8VKWKprmprq/rssm8wAdsj66/2OqOOq2P65zebrvAfE5lFrPCU4RMjkYGysg1gdhDO3qAN1C/SxPjUWPXqjMGDZGTOjmmrWO7fwFs4SiOHHwWmBiqfbuoWODc9d9XPtXv15tmtyZIsFNenBq6a6op7ZiyMnZprMYFjzR15zTZGvbHlPPIXbdGAGYKk/aRdJXN6MlHU4MvJF7s9e8YI=
+  app:
+    master: plebs
+    develop: plebs-staging
+  run: rake db:migrate
+  strategy: git
