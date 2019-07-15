@@ -1,23 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h1>
   <%= @course_module.name %>
-</p>
+</h1>
+
+<h3>
+  <%= @course_module.code %> | <%= @course_module.lecturer %>
+</h3>
 
 <p>
-  <strong>Code:</strong>
-  <%= @course_module.code %>
-</p>
-
-<p>
-  <strong>Year:</strong>
-  <%= @course_module.year %>
-</p>
-
-<p>
-  <strong>Lecturer:</strong>
-  <%= @course_module.lecturer %>
+  <strong>Year <%= @course_module.year %></strong>
 </p>
 
 <%= link_to 'Edit', edit_course_module_path(@course_module) %> |
