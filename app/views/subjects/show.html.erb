@@ -5,7 +5,10 @@
 </h1>
 
 <h3>
-  <%= @subject.code %>
+  <%= @subject.code %> | 
+  <% @subject.lecturers.each do |lecturer|%>
+  <%= link_to lecturer.name, "https://#{lecturer.directory_url}"  %> 
+  <% end %>
 </h3>
 
 <p>

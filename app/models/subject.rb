@@ -6,4 +6,6 @@ class Subject < ApplicationRecord
     message: 'has invalid format'
   }
   validates :year, presence: true, inclusion: 1..4
+
+  has_and_belongs_to_many :lecturers
 end

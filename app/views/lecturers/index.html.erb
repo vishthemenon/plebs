@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Lecturers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td> Name </td>
+      <td> Directory url </td>
+      <td> Modules </td>
+    </tr>
+    </thead>
+  <tbody>
+    <% @lecturers.each do |lecturer| %>
+      <tr>
+        <td><%= lecturer.name.to_s %></td>
+        <td><%= lecturer.directory_url %></td>
+        <td>
+          <% lecturer.subjects.each do |subject| %>
+            <%= subject.name %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lecturer', new_lecturer_path %>
