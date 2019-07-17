@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <%= @subject.name %>
+</h1>
+
+<h3>
+  <%= @subject.code %> | 
+  <% @subject.lecturers.each do |lecturer|%>
+  <%= link_to lecturer.name, "https://#{lecturer.directory_url}"  %> 
+  <% end %>
+</h3>
+
+<p>
+  <strong>Year <%= @subject.year %></strong>
+</p>
+
+<%= link_to 'Edit', edit_subject_path(@subject) %> |
+<%= link_to 'Back', subjects_path %>
