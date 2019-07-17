@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_16_123124) do
+ActiveRecord::Schema.define(version: 2019_07_16_210702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "learning_outcomes", force: :cascade do |t|
+    t.text "content"
+    t.boolean "completed", default: false
+    t.bigint "subject_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["subject_id"], name: "index_learning_outcomes_on_subject_id"
+  end
 
   create_table "lecturers", force: :cascade do |t|
     t.string "name"
@@ -37,4 +46,5 @@ ActiveRecord::Schema.define(version: 2019_07_16_123124) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "learning_outcomes", "subjects"
 end
