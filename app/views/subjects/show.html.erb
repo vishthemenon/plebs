@@ -15,5 +15,11 @@
   <strong>Year <%= @subject.year %></strong>
 </p>
 
+<ol>
+  <% @subject.learning_outcomes.each do |outcome| %>
+  <li> <%= outcome.content %> </li>
+  <% end %>
+</ol>
+
 <%= link_to 'Edit', edit_subject_path(@subject) %> |
 <%= link_to 'Back', subjects_path %>
