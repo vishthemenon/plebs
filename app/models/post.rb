@@ -3,6 +3,7 @@ class Post < ApplicationRecord
 
   has_one_attached :document
 
+  validates :title, presence: true
   validate :document_mime_type
 
   private
