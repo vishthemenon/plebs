@@ -15,5 +15,15 @@
   <strong>Year <%= @subject.year %></strong>
 </p>
 
+<p>
+<%= link_to 'New Post', new_post_path %>
+</p>
+
+<% @subject.posts.each do |post|%>
+  <p>
+    <%=link_to post.body, post%> 
+  </p>
+<% end %>
+
 <%= link_to 'Edit', edit_subject_path(@subject) %> |
 <%= link_to 'Back', subjects_path %>

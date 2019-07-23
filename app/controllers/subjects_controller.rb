@@ -53,6 +53,7 @@ class SubjectsController < ApplicationController
 
   def set_subject
     @subject = Subject.find(params[:id])
+    session[:last_subject_id]=@subject.id
   end
 
   def subject_params
