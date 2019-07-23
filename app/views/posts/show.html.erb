@@ -6,5 +6,11 @@
   <strong><%= @post.body  %></strong>
 </p>
 
+<p>
+  <% if @post.document.attached? %>
+    <%= link_to 'Download', rails_blob_path(@post.document) %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', @post.subject %>

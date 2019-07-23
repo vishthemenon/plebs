@@ -16,6 +16,11 @@
     <%= form.text_field :body %>
   </div>
 
+  <div class="field">
+    <%= form.label :document %>
+    <%= form.file_field :document, accept: 'application/pdf' %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
