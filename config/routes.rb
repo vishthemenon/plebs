@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :lecturers
   resources :subjects
   root to: 'pages#home'
