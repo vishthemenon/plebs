@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :check_permission, only: [:edit, :destroy]
 
   def new
     @comment=current_post.comments.build
@@ -7,6 +8,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment=current_post.comments.build(comment_params)
+    @comment.user_id=current_user.id
 
     respond_to do |format|
       if @comment.save
@@ -48,5 +50,13 @@ class CommentsController < ApplicationController
 
   def current_post 
     Post.find(session[:last_post_id])
+  end
+
+  def check_permission
+    unless @comment.user_id==current_user.id
+      respond_to do |format|
+        format.html { redirect_to current_post, notice: 'You do not have permission to edit this comment' }
+      end
+    end
   end
 end

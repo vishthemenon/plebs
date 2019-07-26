@@ -24,7 +24,10 @@
 <ul>
   <% @post.comments.each do |comment| %>
     <li>
-      <%= comment.body %> | <%= link_to 'Edit', edit_comment_path(comment) %>
+      <strong> <%= comment.user.email %> <strong>     
+      <p> 
+        <%= comment.body %> | <%= link_to 'Edit', edit_comment_path(comment) %>
+      </p>
     </li>
   <% end %>
 <ul>
