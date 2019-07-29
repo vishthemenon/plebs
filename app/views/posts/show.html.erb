@@ -14,7 +14,11 @@
 
 <p>
   <% if @post.document.attached? %>
-    <%= link_to 'Download', rails_blob_path(@post.document) %>
+    <% if @post.document.previewable? %>
+      <%= link_to (image_tag(@post.document.preview(resize: "500x500>"))), rails_blob_path(@post.document) %>
+    <% else %>
+      <%= link_to 'Download', rails_blob_path(@post.document) %>
+    <% end %>
   <% end %>
 </p>
 

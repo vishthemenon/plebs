@@ -24,11 +24,14 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.6'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 gem 'activeadmin', '~> 2.2'
 
 gem 'react-rails', '~> 2.5'
+
+# Open source gem pdf engine, used to preview pdfs
+gem 'poppler', '~> 3.3'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
