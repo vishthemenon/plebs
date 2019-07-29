@@ -4,4 +4,4 @@
 
 <%= link_to 'Show', @comment %> |
 <%= link_to 'Delete', @comment, method: :delete, data: { confirm: 'Are you sure?' } %>
-<%= link_to 'Back', @comment.post %>
+<%= link_to 'Back', @comment.commentable %>

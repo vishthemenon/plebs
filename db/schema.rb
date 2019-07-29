@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_26_142656) do
+ActiveRecord::Schema.define(version: 2019_07_29_101030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,11 +64,12 @@ ActiveRecord::Schema.define(version: 2019_07_26_142656) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
-    t.bigint "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -101,7 +102,9 @@ ActiveRecord::Schema.define(version: 2019_07_26_142656) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
+    t.bigint "user_id", null: false
     t.index ["subject_id"], name: "index_posts_on_subject_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -110,6 +113,13 @@ ActiveRecord::Schema.define(version: 2019_07_26_142656) do
     t.string "code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subjects_users", id: false, force: :cascade do |t|
+    t.bigint "subject_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["subject_id", "user_id"], name: "index_subjects_users_on_subject_id_and_user_id"
+    t.index ["user_id", "subject_id"], name: "index_subjects_users_on_user_id_and_subject_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -125,8 +135,8 @@ ActiveRecord::Schema.define(version: 2019_07_26_142656) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "learning_outcomes", "subjects"
   add_foreign_key "posts", "subjects"
+  add_foreign_key "posts", "users"
 end

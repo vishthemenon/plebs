@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :subject
-  has_many :comments
+  has_many :comments, as: :commentable
 
   has_one_attached :document
 
