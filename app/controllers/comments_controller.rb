@@ -46,12 +46,4 @@ class CommentsController < ApplicationController
   def current_post 
     Post.find(session[:last_post_id])
   end
-
-  def check_permission
-    unless @comment.user_id==current_user.id
-      respond_to do |format|
-        format.html { redirect_to current_post, notice: 'You do not have permission to edit this comment' }
-      end
-    end
-  end
 end
