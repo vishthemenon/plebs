@@ -10,6 +10,20 @@
         <td><%= link_to subject.name.to_s, subject %></td>
         <td><%= subject.code %></td>
         <td>Year <%= subject.year %></td>
+        <td> 
+        <% if subject.users.exists?(current_user.id) %>
+            <%= 
+              link_to 'Remove from favourites', 
+              del_user_from_subject_path(subject), 
+              method: :post 
+            %>
+        <% else %>
+          <%=
+            link_to 'Add to favourites', 
+            add_user_to_subject_path(subject), 
+            method: :post
+          %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
