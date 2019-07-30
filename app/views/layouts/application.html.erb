@@ -16,6 +16,13 @@
       <%= link_to "Logout", destroy_user_session_path, method: :delete %>
     <% end %>
   </p>
+  
+  <p>
+    <% current_user.subjects.each do |subject| %>
+      | <strong> <%= link_to subject.name, subject %> </strong> 
+    <% end %>
+    |
+  </p>
 
   <body>
     <%= yield %>
