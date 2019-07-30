@@ -1,10 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:edit, :update, :destroy]
-  before_action :check_permission, only: [:edit, :destroy]
-
-  def new
-    @comment=current_post.comments.build
-  end
+  before_action :set_comment, only: [:update, :destroy]
+  before_action :check_permission, only: [:update, :destroy]
 
   def create
     @comment=current_post.comments.build(comment_params)
@@ -19,7 +15,6 @@ class CommentsController < ApplicationController
     end
   end
 
-  def edit; end
 
   def update
     respond_to do |format|
