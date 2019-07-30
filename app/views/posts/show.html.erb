@@ -4,6 +4,10 @@
 
 <h3> <%=@post.title %> </h3>
 
+<p> 
+  <i> Posted by <%= @post.user.email %> </i> 
+</p>
+
 <p>
   <%= @post.body  %>
 </p>
