@@ -19,5 +19,11 @@
 
   <body>
     <%= yield %>
+    <%= javascript_include_tag 'core/jquery.min' %>
+    <%= javascript_include_tag 'core/bootstrap.min' %>
+    <%= javascript_include_tag 'core/popper.min' %>
+    <%= javascript_include_tag 'black-dashboard' %>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
   </body>
 </html>
