@@ -26,7 +26,9 @@ gem 'devise', '~> 4.6'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
-gem 'activeadmin', '~> 2.2'
+gem 'activeadmin', github: 'activeadmin/activeadmin', ref: '2f67e13'
+
+gem 'ransack', github: 'activerecord-hackery/ransack', ref: 'aada8'
 
 gem 'react-rails', '~> 2.5'
 
