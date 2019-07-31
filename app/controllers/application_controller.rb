@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
-
+  # before_action :authenticate_user!
+  
   def check_permission
     unless self.user_id == current_user.id
       respond_to do |format|
