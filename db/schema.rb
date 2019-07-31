@@ -62,6 +62,17 @@ ActiveRecord::Schema.define(version: 2019_07_29_103707) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "learning_outcomes", force: :cascade do |t|
     t.text "content"
     t.boolean "completed", default: false
@@ -135,6 +146,7 @@ ActiveRecord::Schema.define(version: 2019_07_29_103707) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "users"
   add_foreign_key "learning_outcomes", "subjects"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "subjects"
