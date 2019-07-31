@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Plebs</title>
+    <title>Student Corner</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,16 +10,18 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <p>
-    <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.email %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-    <% end %>
-  </p>
-
-  <body>
-    <%= yield %>
+    <body>
+    <%= render 'partials/nav' %>
+    <div class='container'>
+      <p>
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>.
+          <%= link_to 'Edit profile', edit_user_registration_path %> |
+          <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+        <% end %>
+      </p>
+      <%= yield %>
+    </div>
     <%= javascript_include_tag 'core/jquery.min' %>
     <%= javascript_include_tag 'core/bootstrap.min' %>
     <%= javascript_include_tag 'core/popper.min' %>
