@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Plebs</title>
+    <title>Student Corner</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= stylesheet_link_tag 'black-dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+<<<<<<< HEAD
   <p>
     <% if user_signed_in? %>
       Logged in as <strong><%= current_user.email %></strong>.
@@ -26,5 +28,25 @@
 
   <body>
     <%= yield %>
+=======
+    <body>
+    <%= render 'partials/nav' %>
+    <div class='container'>
+      <p>
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>.
+          <%= link_to 'Edit profile', edit_user_registration_path %> |
+          <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+        <% end %>
+      </p>
+      <%= yield %>
+    </div>
+    <%= javascript_include_tag 'core/jquery.min' %>
+    <%= javascript_include_tag 'core/bootstrap.min' %>
+    <%= javascript_include_tag 'core/popper.min' %>
+    <%= javascript_include_tag 'black-dashboard' %>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+>>>>>>> master
   </body>
 </html>
