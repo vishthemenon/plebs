@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, as: :commentable
   has_many :likes, as: :likeable
+  has_many :reports, as: :reportable
 
   has_one_attached :document
 
