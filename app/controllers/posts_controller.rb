@@ -45,6 +45,7 @@ class PostsController < ApplicationController
 
   def set_post
     @post=Post.find(params[:id])
+    session[:last_post_id]=@post.id
   end
 
   def check_permission

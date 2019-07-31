@@ -22,5 +22,26 @@
   <% end %>
 </p>
 
+<p>
+  <%=@post.likes.count%> |
+
+  <% if @post.likes.find_by(user_id: current_user) %>
+    <%=link_to 'Unlike',like_path ,method: :delete%>
+  <% else %>
+    <%=link_to 'Like',likes_path ,method: :post%>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', @post.subject %>
+
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li>
+      <strong> <%= comment.user.email %> <strong>     
+      <p> 
+        <%= comment.body %> | <%= link_to 'Edit', edit_comment_path(comment) %>
+      </p>
+    </li>
+  <% end %>
+<ul>
