@@ -2,12 +2,28 @@
 
 <h1> <%=@post.subject.name%> </h1>
 
-<h3> <%=@post.title %> </h3>
+<h2> <%=@post.title %> </h2>
 
 <p> 
   <i> Posted by <%= @post.user.email %> </i> 
 </p>
 
+<% if @post.reports.exists? %>
+  <% mistake_count=@post.reports.count do |report| %>
+    <% report.reason == "Mistake" %>
+  <% end %>
+  <% unless mistake_count == @post.reports.count %>
+    <h3> This post has been reported for innapropriate content </h3>
+  <% end %>
+  <h3> This post has had <%= pluralize(mistake_count, 'mistake') %> reported </h3>
+  <ul>
+  <% @post.reports.each do |report| %>
+    <% if report.reason == "Mistake" %>
+      <li> <%= report.description %>
+    <% end %>
+  <% end %>
+  </ul>
+<% end %>
 <p>
   <%= @post.body  %>
 </p>

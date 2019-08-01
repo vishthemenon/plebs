@@ -27,7 +27,9 @@
 
 <% @subject.posts.each do |post|%>
   <p>
-    <%=link_to post.title, post%>
+    <% unless post.reports.any? { |report| report.reason == "Inappropriate Content" } %>
+      <%=link_to post.title, post%>
+    <% end %>
   </p>
 <% end %>
 
