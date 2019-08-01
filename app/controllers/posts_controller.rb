@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :check_permission, only: [:edit, :destroy]
+  before_action only: [:edit, :destroy] do |controller|
+    controller.check_permission(@post)
+  end
 
   def show; end
 

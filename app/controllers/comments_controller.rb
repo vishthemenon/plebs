@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:update, :destroy]
-  before_action :check_permission, only: [:update, :destroy]
+  before_action only: [:edit, :destroy] do |controller|
+    controller.check_permission(@comment)
+  end
 
   def create
     @comment=current_post.comments.build(comment_params)
