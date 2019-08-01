@@ -15,4 +15,8 @@ class ApplicationController < ActionController::Base
   def current_subject
       Subject.find(session[:last_subject_id])
   end
+
+  def current_post 
+    Post.find(session[:last_post_id])
+  end
 end

@@ -42,8 +42,4 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:body)
   end
-
-  def current_post 
-    Post.find(session[:last_post_id])
-  end
 end

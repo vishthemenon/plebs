@@ -12,17 +12,29 @@
   <% mistake_count=@post.reports.count do |report| %>
     <% report.reason == "Mistake" %>
   <% end %>
+
   <% unless mistake_count == @post.reports.count %>
     <h3> This post has been reported for innapropriate content </h3>
   <% end %>
-  <h3> This post has had <%= pluralize(mistake_count, 'mistake') %> reported </h3>
+
+  <h3> This post has <%= pluralize(mistake_count, 'reported mistake') %> </h3>
+
   <ul>
   <% @post.reports.each do |report| %>
     <% if report.reason == "Mistake" %>
       <li> <%= report.description %>
+
+      <% if report.resolved %>
+        <strong> Marked as resolved by author </strong>
+      <% elsif @post.user_id==current_user.id %>
+        <%= link_to 'Mark as resolved', 
+        mark_report_as_resolved_path(report),
+        resolved: true, method: :patch %>
+      <% end %>
     <% end %>
   <% end %>
   </ul>
+
 <% end %>
 <p>
   <%= @post.body  %>
