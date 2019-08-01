@@ -29,14 +29,16 @@
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', @post.subject %>
+<%= link_to 'Back', @post.subject %> |
+<%= link_to 'Report', new_report_path(reporter_id: @post.id, reporter_type: @post.class.to_s.to_sym) %>
 
 <ul>
   <% @post.comments.each do |comment| %>
     <li>
       <strong> <%= comment.user.email %> <strong>     
+      <%= link_to 'Report', new_report_path(reporter_id: comment.id, reporter_type: comment.class.to_s.to_sym) %>
       <p> 
-        <%= comment.body %> | <%= link_to 'Edit', edit_comment_path(comment) %>
+        <%= comment.body %>
       </p>
     </li>
   <% end %>
