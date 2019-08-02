@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_02_092543) do
+ActiveRecord::Schema.define(version: 2019_08_02_104915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,19 +125,6 @@ ActiveRecord::Schema.define(version: 2019_08_02_092543) do
     t.index ["tag_id", "post_id"], name: "index_posts_tags_on_tag_id_and_post_id"
   end
 
-  create_table "reports", force: :cascade do |t|
-    t.string "reason"
-    t.text "description"
-    t.boolean "resolved", default: false
-    t.bigint "user_id", null: false
-    t.string "reportable_type", null: false
-    t.bigint "reportable_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable_type_and_reportable_id"
-    t.index ["user_id"], name: "index_reports_on_user_id"
-  end
-
   create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.integer "year"
@@ -157,6 +144,7 @@ ActiveRecord::Schema.define(version: 2019_08_02_092543) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "color"
   end
 
   create_table "users", force: :cascade do |t|
@@ -177,5 +165,4 @@ ActiveRecord::Schema.define(version: 2019_08_02_092543) do
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "subjects"
   add_foreign_key "posts", "users"
-  add_foreign_key "reports", "users"
 end

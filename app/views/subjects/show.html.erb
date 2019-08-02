@@ -34,7 +34,9 @@
       <li style="font-size:150%;"> <strong> <%=link_to post.title, post %> </strong>
 
         <% post.tags.each do |tag| %>
+        <i style=<% "background-color:#{tag.color}" %> >
           <%= link_to tag.name, subject_path(tag_id: tag.id) %> 
+        </i>
         <% end %>
     <% end %>
   <% end %>
