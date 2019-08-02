@@ -29,7 +29,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to @post, notice: 'Post was succesfully updated.' }
       else
         format.html { render :edit }
       end
@@ -51,7 +51,7 @@ class PostsController < ApplicationController
   end
 
   def post_params 
-    params.require(:post).permit(:title, :body, :document)
+    params.require(:post).permit(:title, :body, :document, tag_ids: [])
   end
 
   def current_subject
