@@ -23,13 +23,22 @@
 
 <p>
   <%= link_to 'New Post', new_post_path %>
+  <% if @filtered %>
+    | <%= link_to 'Remove filter', subject_path(@subject) %>
+  <% end %>
 </p>
 
-<% @subject.posts.each do |post|%>
-  <p>
-    <%=link_to post.title, post%>
-  </p>
-<% end %>
+<ul>
+  <% @subject.posts.each do |post|%>
+    <% if !@filtered || (post.tags.include? @tag )%>
+      <li style="font-size:150%;"> <strong> <%=link_to post.title, post %> </strong>
+
+        <% post.tags.each do |tag| %>
+          <%= link_to tag.name, subject_path(tag_id: tag.id) %> 
+        <% end %>
+    <% end %>
+  <% end %>
+</ul>
 
 <%= link_to 'Edit', edit_subject_path(@subject) %> |
 <%= link_to 'Back', subjects_path %>

@@ -7,7 +7,10 @@ class SubjectsController < ApplicationController
   end
 
   # GET /subjects/1
-  def show; end
+  def show
+    @filtered=params[:tag_id]
+    @tag=Tag.find(params[:tag_id]) if @filtered
+  end
 
   # GET /subjects/new
   def new
