@@ -4,7 +4,11 @@ class PostsController < ApplicationController
     controller.check_permission(@post)
   end
 
-  def show; end
+  def show
+    @mistake_count=@post.reports.count do |report|
+      report.reason == "Mistake"
+    end
+  end
 
   def new
     @post=current_subject.posts.build

@@ -9,15 +9,11 @@
 </p>
 
 <% if @post.reports.exists? %>
-  <% mistake_count=@post.reports.count do |report| %>
-    <% report.reason == "Mistake" %>
-  <% end %>
-
-  <% unless mistake_count == @post.reports.count %>
+  <% unless @mistake_count == @post.reports.count %>
     <h3> This post has been reported for innapropriate content </h3>
   <% end %>
 
-  <h3> This post has <%= pluralize(mistake_count, 'reported mistake') %> </h3>
+  <h3> This post has <%= pluralize(@mistake_count, 'reported mistake') %> </h3>
 
   <ul>
   <% @post.reports.each do |report| %>
@@ -28,8 +24,12 @@
         <strong> Marked as resolved by author </strong>
       <% elsif @post.user_id==current_user.id %>
         <%= link_to 'Mark as resolved', 
-        mark_report_as_resolved_path(report),
-        resolved: true, method: :patch %>
+        mark_report_as_resolved_path(
+          report,
+          reporter_id: @post.id,
+          reporter_type: @post.class.to_s.to_sym
+          ),
+        method: :patch %>
       <% end %>
     <% end %>
   <% end %>

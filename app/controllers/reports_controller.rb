@@ -1,5 +1,8 @@
 class ReportsController < ApplicationController
-before_action :find_reporter, only: [:new, :create]
+  before_action :find_reporter
+  before_action only: [:mark_as_resolved] do |controller|
+    controller.check_permission(@reporter)
+  end
 
   def new
     @report=@reporter.reports.build
