@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  # before_action :authenticate_user!
+  helper_method :mistake_count
   
   def check_permission(object)
     unless object.user_id == current_user.id
@@ -13,10 +13,16 @@ class ApplicationController < ActionController::Base
   end
 
   def current_subject
-      Subject.find(session[:last_subject_id])
+    Subject.find(session[:last_subject_id])
   end
 
   def current_post 
     Post.find(session[:last_post_id])
+  end
+
+  def mistake_count(object)
+    object.reports.count do |report|
+      report.reason == "Mistake"
+    end
   end
 end

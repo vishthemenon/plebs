@@ -8,34 +8,8 @@
   <i> Posted by <%= @post.user.email %> </i> 
 </p>
 
-<% if @post.reports.exists? %>
-  <% unless @mistake_count == @post.reports.count %>
-    <h3> This post has been reported for innapropriate content </h3>
-  <% end %>
+<%= render 'mistake_list', object: @post %>
 
-  <h3> This post has <%= pluralize(@mistake_count, 'reported mistake') %> </h3>
-
-  <ul>
-  <% @post.reports.each do |report| %>
-    <% if report.reason == "Mistake" %>
-      <li> <%= report.description %>
-
-      <% if report.resolved %>
-        <strong> Marked as resolved by author </strong>
-      <% elsif @post.user_id==current_user.id %>
-        <%= link_to 'Mark as resolved', 
-        mark_report_as_resolved_path(
-          report,
-          reporter_id: @post.id,
-          reporter_type: @post.class.to_s.to_sym
-          ),
-        method: :patch %>
-      <% end %>
-    <% end %>
-  <% end %>
-  </ul>
-
-<% end %>
 <p>
   <%= @post.body  %>
 </p>
@@ -62,12 +36,16 @@
 
 <ul>
   <% @post.comments.each do |comment| %>
-    <li>
-      <strong> <%= comment.user.email %> <strong>     
-      <%= link_to 'Report', new_report_path(reporter_id: comment.id, reporter_type: comment.class.to_s.to_sym) %>
-      <p> 
-        <%= comment.body %>
-      </p>
-    </li>
+    <% unless comment.reports.any? { |report| report.reason == "Inappropriate Content" } %>
+      <li>
+        <strong> <%= comment.user.email %> </strong>     
+        <%= link_to 'Report', new_report_path(reporter_id: comment.id, reporter_type: comment.class.to_s.to_sym) %>
+
+        <%= render 'mistake_list', object: comment %>
+        <p> 
+          <%= comment.body %>
+        </p>
+      </li>
+    <% end %>
   <% end %>
 <ul>

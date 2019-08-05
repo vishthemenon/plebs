@@ -1,0 +1,36 @@
+<% if object.reports.exists? %>
+  <% unless mistake_count(object) == object.reports.count %>
+    <p>
+      <strong>
+        This <%= object.class.to_s.downcase %> 
+        has been reported for innapropriate content
+      </strong>
+    </p>
+  <% end %>
+
+  <p>
+    <strong> This <%= object.class.to_s.downcase %>
+    has <%= pluralize(mistake_count(object), 'reported mistake') %> </strong>
+  </p>
+
+  <ul>
+    <% object.reports.each do |report| %>
+      <% if report.reason == "Mistake" %>
+        <li> <%= report.description %>
+
+          <% if report.resolved %>
+            <strong> Marked as resolved by author </strong>
+          <% elsif object.user_id==current_user.id %>
+            <%= link_to 'Mark as resolved', 
+            mark_report_as_resolved_path(
+              report,
+              reporter_id: object.id,
+              reporter_type: object.class.to_s.to_sym
+              ),
+            method: :patch %>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
