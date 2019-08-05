@@ -53,8 +53,4 @@ class PostsController < ApplicationController
   def post_params 
     params.require(:post).permit(:title, :body, :document)
   end
-
-  def current_subject
-      Subject.find(session[:last_subject_id])
-  end
 end

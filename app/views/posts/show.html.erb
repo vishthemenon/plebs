@@ -2,11 +2,13 @@
 
 <h1> <%=@post.subject.name%> </h1>
 
-<h3> <%=@post.title %> </h3>
+<h2> <%=@post.title %> </h2>
 
 <p> 
   <i> Posted by <%= @post.user.email %> </i> 
 </p>
+
+<%= render 'mistake_list', object: @post %>
 
 <p>
   <%= @post.body  %>
@@ -29,15 +31,21 @@
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', @post.subject %>
+<%= link_to 'Back', @post.subject %> |
+<%= link_to 'Report', new_report_path(reporter_id: @post.id, reporter_type: @post.class.to_s.to_sym) %>
 
 <ul>
   <% @post.comments.each do |comment| %>
-    <li>
-      <strong> <%= comment.user.email %> <strong>     
-      <p> 
-        <%= comment.body %> | <%= link_to 'Edit', edit_comment_path(comment) %>
-      </p>
-    </li>
+    <% unless comment.reports.any? { |report| report.reason == "Inappropriate Content" } %>
+      <li>
+        <strong> <%= comment.user.email %> </strong>     
+        <%= link_to 'Report', new_report_path(reporter_id: comment.id, reporter_type: comment.class.to_s.to_sym) %>
+
+        <%= render 'mistake_list', object: comment %>
+        <p> 
+          <%= comment.body %>
+        </p>
+      </li>
+    <% end %>
   <% end %>
 <ul>
