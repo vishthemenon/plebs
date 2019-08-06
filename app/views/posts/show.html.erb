@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<script type="text/javascript" async >
+  MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+</script>
+
 <h1> <%=@post.subject.name%> </h1>
 
 <h3> <%=@post.title %> </h3>
@@ -9,7 +13,7 @@
 </p>
 
 <p>
-  <%= @post.body  %>
+  <%= @post.body.to_s  %>
 </p>
 
 <p>
@@ -36,7 +40,8 @@
     <li>
       <strong> <%= comment.user.email %> <strong>     
       <p> 
-        <%= comment.body %> | <%= link_to 'Edit', edit_comment_path(comment) %>
+        <%= comment.body.to_s %> | 
+        <%= link_to 'Edit', edit_comment_path(comment) %>
       </p>
     </li>
   <% end %>
