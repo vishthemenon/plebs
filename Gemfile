@@ -32,6 +32,9 @@ gem 'ransack', github: 'activerecord-hackery/ransack', ref: 'aada8'
 
 gem 'react-rails', '~> 2.5'
 
+# RSS feed support
+gem 'rss'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
