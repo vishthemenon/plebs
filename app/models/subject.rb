@@ -2,6 +2,7 @@ class Subject < ApplicationRecord
   has_and_belongs_to_many :lecturers
   has_and_belongs_to_many :users
   has_many :learning_outcomes
+  has_many :lectures
   has_many :posts
 
   validates :name, presence: true, uniqueness: true
