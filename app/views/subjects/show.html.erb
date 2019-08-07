@@ -15,6 +15,22 @@
   <strong>Year <%= @subject.year %></strong>
 </p>
 
+<table>
+  <% @subject.lectures.order(:pubDate).each do |lecture| %>
+    <tr>
+      <td>
+        <%= 
+          link_to( 
+            lecture.title ? lecture.title : lecture.rss_title,
+            lecture.panopto_url,
+            target: :_blank
+          )
+        %> 
+      </td>
+    </tr>
+  <% end %>
+</table>
+
 <ol>
   <% @subject.learning_outcomes.each do |outcome| %>
   <li> <%= outcome.content %> </li>
