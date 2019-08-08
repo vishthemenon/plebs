@@ -1,0 +1,48 @@
+.sidebar-wrapper
+  .logo
+    %a.simple-text.logo-mini{:href => "javascript:void(0)"}
+      .photo
+        = image_tag 'anime3.png'
+    %a.simple-text.logo-normal{:href => "javascript:void(0)"}
+      = current_user.email
+  %ul.nav
+    %li
+      =link_to root_path do
+        = fa_icon "columns"
+        %p Dashboard
+    %li
+      =link_to subjects_path do
+        = fa_icon "book"
+        %p Modules
+    %li
+      =link_to fireplace_path do
+        = fa_icon "fire"
+        %p Fireplace
+    -# %li
+    -#   %a{:href => "./map.html"}
+    -#     %i.tim-icons.icon-pin
+    -#     %p Maps
+    -# %li
+    -#   %a{:href => "./notifications.html"}
+    -#     %i.tim-icons.icon-bell-55
+    -#     %p Notifications
+    -# %li.active
+    -#   %a{:href => "./user.html"}
+    -#     %i.tim-icons.icon-single-02
+    -#     %p User Profile
+    -# %li
+    -#   %a{:href => "./tables.html"}
+    -#     %i.tim-icons.icon-puzzle-10
+    -#     %p Table List
+    -# %li
+    -#   %a{:href => "./typography.html"}
+    -#     %i.tim-icons.icon-align-center
+    -#     %p Typography
+    -# %li
+    -#   %a{:href => "./rtl.html"}
+    -#     %i.tim-icons.icon-world
+    -#     %p RTL Support
+    -# %li.active-pro
+    -#   %a{:href => "./upgrade.html"}
+    -#     %i.tim-icons.icon-spaceship
+    -#     %p Upgrade to PRO

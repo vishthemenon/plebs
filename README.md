@@ -4,6 +4,7 @@
 * Node => 12.6.0
 * Yarn ~> 1.16.0
 * PostgreSQL ~> 9.6
+* Poppler-glib ~> 0.79
 
 # Setting up Development Environment
 ## Clone git repository from github

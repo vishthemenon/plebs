@@ -1,0 +1,31 @@
+%nav.navbar.navbar-expand-lg.navbar-absolute.navbar-transparent
+  .container
+    .navbar-toggle.d-inline
+      %button.navbar-toggler{:type => "button"}
+        %span.navbar-toggler-bar.bar1
+        %span.navbar-toggler-bar.bar2
+        %span.navbar-toggler-bar.bar3
+    %a.navbar-brand{:href => "#"} Student Corner
+    %button.navbar-toggler{"aria-controls" => "navbarNavDropdown", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarNavDropdown", "data-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-bar.navbar-kebab
+      %span.navbar-toggler-bar.navbar-kebab
+      %span.navbar-toggler-bar.navbar-kebab
+    #navbarNavDropdown.collapse.navbar-collapse
+      %ul.navbar-nav.ml-auto
+        %li.nav-item
+          %a.nav-link{:href => "/"}
+            Home
+            %span.sr-only (current)
+        - if user_signed_in?
+          %li.nav-item
+            = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link'
+        - else
+          %li.nav-item
+            = link_to 'Login', new_user_session_path, class: 'nav-link'
+        -# %li.nav-item.dropdown
+        -#   %a#navbarDropdownMenuLink.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#"}
+        -#     Dropdown link
+        -#   .dropdown-menu{"aria-labelledby" => "navbarDropdownMenuLink"}
+        -#     %a.dropdown-item{:href => "#"} Action
+        -#     %a.dropdown-item{:href => "#"} Another action
+        -#     %a.dropdown-item{:href => "#"} Something else here

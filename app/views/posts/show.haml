@@ -1,0 +1,60 @@
+.row
+  .col-md-9
+    .row
+      .col-md-6
+        .card
+          .card-body
+            %span.badge.badge-primary= @post.subject.name
+            %h3
+              = @post.title
+            %p
+              = @post.body
+            %h4.text-center
+              = @post.likes.count
+              |
+              - if @post.likes.find_by(user_id: current_user)
+                = link_to like_path ,method: :delete do
+                  = fa_icon "thumbs-down"
+              - else
+                = link_to likes_path ,method: :post do
+                  = fa_icon "thumbs-up"
+            %h4.text-center
+              = 0
+              |
+              - if @post.likes.find_by(user_id: current_user)
+                = link_to like_path ,method: :delete do
+                  = fa_icon "thumbs-down"
+              - else
+                = link_to likes_path ,method: :post do
+                  = fa_icon "thumbs-up"
+              = link_to 'Download', rails_blob_path(@post.document), class: 'btn btn-info btn-simple btn-sm'
+            %ul
+              - @post.comments.each do |comment|
+                %li
+                  %strong
+                    = comment.user.email
+                    %strong
+                      %p
+                        = comment.body
+                        | #{link_to 'Edit', edit_comment_path(comment)}
+        .card
+          .card-header
+            %h5 Comments
+          .card-body
+            %text-area
+      .col-md-6
+        %p
+          - if @post.document.attached?
+            - if @post.document.previewable?
+              = link_to (image_tag(@post.document.preview(resize: "500x500>"))), rails_blob_path(@post.document)
+            - else
+              = link_to 'Download', rails_blob_path(@post.document)
+  .col-md-3
+    .card
+      .card-body
+        %h6 Posted by
+        - user = @post.user
+        %a.simple-text.logo-mini
+          .photo
+            = image_tag 'anime3.png'
+          = user.email

@@ -1,5 +1,6 @@
 class Subject < ApplicationRecord
   has_and_belongs_to_many :lecturers
+  has_and_belongs_to_many :users
   has_many :learning_outcomes
   has_many :posts
 
@@ -10,4 +11,6 @@ class Subject < ApplicationRecord
       message: 'has invalid format'
     }
   validates :year, presence: true, inclusion: 1..4
+
+  accepts_nested_attributes_for :lecturers
 end

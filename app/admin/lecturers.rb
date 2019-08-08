@@ -12,5 +12,5 @@ ActiveAdmin.register Lecturer do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+  permit_params :name, :directory_url
 end

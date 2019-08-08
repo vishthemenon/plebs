@@ -1,0 +1,22 @@
+%table.table
+  %thead
+    %tr
+      %th.text-center
+      %th Name
+      %th Code
+      %th Year
+      %th.text-right Actions
+  %tbody
+    - subjects.each_with_index do |subject, index|
+      %tr
+        %td.text-center= (index+1)
+        %td= link_to subject.name, subject_path(subject)
+        %td= subject.code
+        %td= subject.year
+        %td.td-actions.text-right
+          - if subject.users.exists?(current_user.id)
+            = link_to del_user_from_subject_path(subject), method: :post, class: 'btn btn-warning btn-simple' do
+              Remove from favourites
+          - else
+            = link_to add_user_to_subject_path(subject), method: :post, class: 'btn btn-info btn-simple' do
+              Add to favourites

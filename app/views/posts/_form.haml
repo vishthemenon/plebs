@@ -1,0 +1,32 @@
+= form_with(model: post, local: true) do |f|
+  .card-body
+    .row
+      .col-12
+        .form-group
+          = f.label :title
+          = f.text_field :title, autofocus: true, class: "form-control"
+    .row
+      .col-12
+        .form-group
+          = f.label :body
+          = f.text_area :body, class: "form-control"
+    .row
+      .col-12
+        .form-group
+          = f.label 'Upload Document', class: 'btn btn-simple'
+          = f.file_field :document, accept: 'applicaiton/pdf', class: "form-control"
+    %hr
+    = f.submit "Submit", class: 'btn btn-fill btn-primary'
+
+-# <%= form_with(model: post, local: true) do |form| %>
+  -# <% if post.errors.any? %>
+  -#   <div id="error_explanation">
+  -#     <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+  -#     <ul>
+  -#       <% post.errors.full_messages.each do |message| %>
+  -#         <li><%= message %></li>
+  -#       <% end %>
+  -#     </ul>
+  -#   </div>
+  -# <% end %>

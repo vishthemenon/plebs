@@ -1,0 +1,32 @@
+.row
+  .col-lg-9
+    .card
+      .card-header
+        - @subject.lecturers.each do |lecturer|
+          = link_to lecturer.name, "https://#{lecturer.directory_url}"
+        %h1.display-6= "#{@subject.code} #{@subject.name}"
+      .card-body
+        - if @subject.users.exists?(current_user.id)
+          = link_to 'Remove from favourites', del_user_from_subject_path(@subject), method: :post, class: 'btn btn-warning btn-simple'
+        - else
+          = link_to 'Add to favourites', add_user_to_subject_path(@subject), method: :post, class: 'btn btn-info btn-simple'
+    = render 'post_table', posts: @subject.posts
+    = link_to 'Add a new Post', new_post_path(), class: 'btn btn-primary'
+  .col-lg-3
+    - unless @subject.learning_outcomes.empty?
+      .card
+        .card-body
+          %h6 Learning Outcomes
+          %ol
+            - @subject.learning_outcomes.each do |outcome|
+              %li
+                = outcome.content
+    - unless @subject.users.empty?
+      .card
+        .card-body
+          %h6 Followers
+          - @subject.users.each do |user|
+            %a.simple-text.logo-mini
+              .photo
+                = image_tag 'anime3.png'
+              = user.email

@@ -1,0 +1,8 @@
+- unless current_user.subjects.empty?
+  %h1 Your Modules
+  = render 'table', subjects: current_user.subjects
+
+- other_subjects = @subjects - current_user.subjects
+- unless other_subjects.empty?
+  %h1 All Modules
+  = render 'table', subjects: other_subjects

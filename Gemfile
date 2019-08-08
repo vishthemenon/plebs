@@ -23,10 +23,18 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'devise', '~> 4.6'
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'hamlit'
 
-gem 'activeadmin', '~> 2.2'
+gem "font-awesome-rails"
+
+
+# Use Active Storage variant
+gem 'image_processing', '~> 1.2'
+gem 'poppler', '~> 3.3'
+
+gem 'activeadmin', github: 'activeadmin/activeadmin', ref: '2f67e13'
+
+gem 'ransack', github: 'activerecord-hackery/ransack', ref: 'aada8'
 
 gem 'react-rails', '~> 2.5'
 
