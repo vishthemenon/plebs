@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_29_103707) do
+ActiveRecord::Schema.define(version: 2019_08_08_104536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,18 @@ ActiveRecord::Schema.define(version: 2019_07_29_103707) do
     t.index ["subject_id", "lecturer_id"], name: "index_lecturers_subjects_on_subject_id_and_lecturer_id"
   end
 
+  create_table "lectures", force: :cascade do |t|
+    t.string "title"
+    t.string "rss_title"
+    t.string "video_url"
+    t.string "panopto_url"
+    t.datetime "pubDate"
+    t.bigint "subject_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["subject_id"], name: "index_lectures_on_subject_id"
+  end
+
   create_table "likes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "likeable_type", null: false
@@ -124,6 +136,7 @@ ActiveRecord::Schema.define(version: 2019_07_29_103707) do
     t.string "code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "rss_url"
   end
 
   create_table "subjects_users", id: false, force: :cascade do |t|
@@ -141,6 +154,7 @@ ActiveRecord::Schema.define(version: 2019_07_29_103707) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "privacy_policy"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -148,6 +162,7 @@ ActiveRecord::Schema.define(version: 2019_07_29_103707) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users"
   add_foreign_key "learning_outcomes", "subjects"
+  add_foreign_key "lectures", "subjects"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "subjects"
   add_foreign_key "posts", "users"
