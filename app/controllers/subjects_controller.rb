@@ -1,5 +1,5 @@
 class SubjectsController < ApplicationController
-  before_action :set_subject, only: [:show, :edit, :update, :destroy]
+  before_action :set_subject, only: [:show, :edit, :update, :destroy, :add_user, :del_user]
 
   # GET /subjects
   def index
@@ -46,6 +46,30 @@ class SubjectsController < ApplicationController
     @subject.destroy
     respond_to do |format|
       format.html { redirect_to subjects_url, notice: 'Module was successfully destroyed.' }
+    end
+  end
+
+  def add_user
+    @subject.users << current_user 
+    respond_to do |format|
+      if @subject.save
+        format.html do
+          redirect_to subjects_url,
+          notice: 'Module was successfully added to your favourites.'
+        end
+      else
+        format.html { redirect_to subjects_url }
+      end
+    end
+  end
+
+  def del_user
+    @subject.users.destroy(current_user)
+    respond_to do |format|
+      format.html do
+        redirect_to subjects_url,
+        notice: 'Module was successfully removed from favourites'
+      end
     end
   end
 

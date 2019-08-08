@@ -50,6 +50,14 @@ class PostsController < ApplicationController
     session[:last_post_id]=@post.id
   end
 
+  def check_permission
+    unless @post.user_id==current_user.id
+      respond_to do |format|
+        format.html { redirect_to @post, notice: 'You do not have permission to edit this post' }
+      end
+    end
+  end
+
   def post_params 
     params.require(:post).permit(:title, :body, :document)
   end

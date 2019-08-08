@@ -10,6 +10,25 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+<<<<<<< HEAD
+  <p>
+    <% if user_signed_in? %>
+      Logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_user_registration_path %> |
+      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+    <% end %>
+  </p>
+  
+  <p>
+    <% current_user.subjects.each do |subject| %>
+      | <strong> <%= link_to subject.name, subject %> </strong> 
+    <% end %>
+    |
+  </p>
+
+  <body>
+    <%= yield %>
+=======
     <body>
     <%= render 'partials/nav' %>
     <div class='container'>
@@ -28,5 +47,6 @@
     <%= javascript_include_tag 'black-dashboard' %>
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet">
+>>>>>>> master
   </body>
 </html>

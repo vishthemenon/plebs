@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :update, :destroy]
   resources :lecturers
   resources :subjects
+  post 'subjects/:id/add_user', to: 'subjects#add_user', as: 'add_user_to_subject'
+  post 'subjects/:id/del_user', to: 'subjects#del_user', as: 'del_user_from_subject'
   resources :posts, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :likes, only: [:create, :destroy]
   root to: 'pages#home'
