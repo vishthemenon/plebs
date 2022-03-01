@@ -29,7 +29,7 @@ gem "font-awesome-rails"
 
 
 # Use Active Storage variant
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.12'
 gem 'poppler', '~> 3.3'
 
 gem 'activeadmin', github: 'activeadmin/activeadmin', ref: '2f67e13'
